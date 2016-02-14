@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -23,7 +24,7 @@
 			data-options="iconCls:'icon-add',plain:true">Add</a> <a id="btn"
 			href="#" class="easyui-linkbutton"
 			data-options="iconCls:'icon-remove',plain:true">Remove</a> <a
-			id="btn" href="#" class="easyui-linkbutton"
+			id="btn" href="/sport/ToModifyServlet" class="easyui-linkbutton"
 			data-options="iconCls:'icon-edit',plain:true">Edit</a>
 		<table class="easyui-datagrid">
 			<thead>
@@ -43,9 +44,22 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr>
-					<td><input type="checkbox" /></td>
-				</tr>
+				<c:forEach var="goods" items="${goodses }">
+					<tr>
+						<td><input type="checkbox" /></td>
+						<td><c:out value="${goods.name }"></c:out></td>
+						<td><c:out value="${goods.cate.name }"></c:out></td>
+						<td><c:out value="${goods.brand }"></c:out></td>
+						<td><c:out value="${goods.price }"></c:out></td>
+						<td><c:out value="${goods.amount }"></c:out></td>
+						<td><c:out value="${goods.sales }"></c:out></td>
+						<td><c:out value="${goods.popularity }"></c:out></td>
+						<td><c:out value="${goods.des }"></c:out></td>
+						<td><c:out value="${goods.imgPath }"></c:out></td>
+						<td><c:out value="${goods.activity.name }"></c:out></td>
+						<td><c:out value="${goods.actprice }"></c:out></td>
+					</tr>
+				</c:forEach>
 			</tbody>
 		</table>
 		<div id="pp" class="easyui-pagination"

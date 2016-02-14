@@ -81,6 +81,6 @@ public class AddGoodsServlet extends HttpServlet {
 
 		// 添加新商品到数据库
 		goodsService.add(goods);
-		response.setHeader("refresh", "3;url=/sport/goods/goods_list.jsp");
+		response.setHeader("refresh", "3;url=/sport/ToGoodsListServlet");
 	}
 }

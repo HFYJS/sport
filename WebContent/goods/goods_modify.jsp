@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>商品添加</title>
+<title>商品修改</title>
 <link rel="stylesheet" type="text/css"
 	href="/sport/easyui/themes/default/easyui.css">
 <link rel="stylesheet" type="text/css"
@@ -16,7 +16,7 @@
 	src="/sport/easyui/locale/easyui-lang-zh_CN.js"></script>
 </head>
 <body>
-	<div id="p" class="easyui-panel" title="商品添加"
+	<div id="p" class="easyui-panel" title="商品修改"
 		style="width: 1200px; height: 480px; padding: 10px; background: #fafafa;"
 		data-options="iconCls:'icon-save',collapsible:true">
 		<form method="post" action="/sport/AddGoodsServlet">
@@ -37,7 +37,7 @@
 					<option value="${activity.actid }"><c:out
 							value="${activity.name }"></c:out></option>
 				</c:forEach></select><br> <br> 活动价格：<input type="text" name="actprice" /><br>
-			<br> <input type="submit" value="添加" /> <input type="reset"
+			<br> <input type="submit" value="修改" /> <input type="reset"
 				value="取消" />
 		</form>
 	</div>
