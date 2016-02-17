@@ -43,12 +43,8 @@ public class AddGoodsServlet extends HttpServlet {
 		int sid = Integer.parseInt(request.getParameter("sid"));// 获取商品所属商家ID
 		String name = request.getParameter("name");// 获取商品名
 		// 获取商品分类
-		Cate cate = new Cate();
-		CateService cateService = new CateService();
 		int catId = Integer.parseInt(request.getParameter("catid"));
-		String catName = cateService.getNameByCateid(catId);
-		cate.setCatid(catId);
-		cate.setName(catName);
+		Cate cate = new CateService().getCateByCateid(catId);
 		String brand = request.getParameter("brand");// 获取商品品牌
 		Double price = Double.parseDouble(request.getParameter("price"));// 获取商品价格
 		int amount = Integer.parseInt(request.getParameter("amount"));// 获取商品总数
@@ -57,12 +53,8 @@ public class AddGoodsServlet extends HttpServlet {
 		String des = request.getParameter("des");// 获取商品描述
 		String imgPath = request.getParameter("imgpath");// 获取商品图片路径
 		// 获取商品活动
-		Activity activity = new Activity();
-		ActivityService activityService = new ActivityService();
 		int actId = Integer.parseInt(request.getParameter("actid"));
-		String actName = activityService.getNameByActid(actId);
-		activity.setActid(actId);
-		activity.setName(actName);
+		Activity activity = new ActivityService().getActivityByActid(actId);
 		Double actPrice = Double.parseDouble(request.getParameter("actprice"));// 获取商品活动价格
 
 		// 为新商品赋值
@@ -77,7 +69,7 @@ public class AddGoodsServlet extends HttpServlet {
 		goods.setDes(des);
 		goods.setImgPath(imgPath);
 		goods.setActivity(activity);
-		goods.setActprice(actPrice);
+		goods.setActPrice(actPrice);
 
 		// 添加新商品到数据库
 		goodsService.add(goods);

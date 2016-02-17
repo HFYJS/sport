@@ -7,7 +7,7 @@ public class Goods {
 	private Cate cate;
 	private String name;
 	private double price;
-	private double actprice;
+	private double actPrice;
 	private int sales;
 	private int amount;
 	private String brand;
@@ -67,12 +67,12 @@ public class Goods {
 		this.price = price;
 	}
 
-	public double getActprice() {
-		return actprice;
+	public double getActPrice() {
+		return actPrice;
 	}
 
-	public void setActprice(double actprice) {
-		this.actprice = actprice;
+	public void setActPrice(double actPrice) {
+		this.actPrice = actPrice;
 	}
 
 	public int getSales() {

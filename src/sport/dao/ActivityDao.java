@@ -55,19 +55,21 @@ public class ActivityDao {
 		return activities;
 	}
 
-	public String getNameByActid(int actId) {
+	public Activity getActivityByActid(int actId) {
 		Connection conn = DBConnection.getConnection();
 		PreparedStatement pStat = null;
 		ResultSet rs = null;
-		String name = null;
-		String sql = "select name from activity where actid=?";
+		Activity activity = null;
+		String sql = "select * from activity where actid=?";
 
 		try {
 			pStat = conn.prepareStatement(sql);
 			pStat.setInt(1, actId);
 			rs = pStat.executeQuery();
 			if (rs.next()) {
-				name = rs.getString(1);
+				activity = new Activity();
+				activity.setActid(actId);
+				activity.setName(rs.getString(2));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -89,6 +91,6 @@ public class ActivityDao {
 			DBConnection.close(conn);
 		}
 
-		return name;
+		return activity;
 	}
 }

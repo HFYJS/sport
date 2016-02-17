@@ -12,7 +12,7 @@ public class ActivityService {
 		return dao.search();
 	}
 
-	public String getNameByActid(int actId) {
-		return dao.getNameByActid(actId);
+	public Activity getActivityByActid(int actId) {
+		return dao.getActivityByActid(actId);
 	}
 }

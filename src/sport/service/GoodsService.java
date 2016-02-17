@@ -16,7 +16,12 @@ public class GoodsService {
 		dao.add(goods);
 	}
 
+	public Goods getGoodsByGid(int gid) {
+		return dao.getGoodsByGid(gid);
+	}
+
 	public List<Goods> getAll() {
 		return dao.getAll();
 	}
+
 }

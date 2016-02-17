@@ -55,19 +55,21 @@ public class CateDao {
 		return cates;
 	}
 
-	public String getNameByCatid(int catid) {
+	public Cate getCateByCatid(int catId) {
 		Connection conn = DBConnection.getConnection();
 		PreparedStatement pStat = null;
 		ResultSet rs = null;
-		String name = null;
-		String sql = "select name from cate where catid=?";
+		Cate cate = null;
+		String sql = "select * from cate where catid=?";
 
 		try {
 			pStat = conn.prepareStatement(sql);
-			pStat.setInt(1, catid);
+			pStat.setInt(1, catId);
 			rs = pStat.executeQuery();
 			if (rs.next()) {
-				name = rs.getString(1);
+				cate = new Cate();
+				cate.setCatid(catId);
+				cate.setName(rs.getString(2));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -89,6 +91,6 @@ public class CateDao {
 			DBConnection.close(conn);
 		}
 
-		return name;
+		return cate;
 	}
 }

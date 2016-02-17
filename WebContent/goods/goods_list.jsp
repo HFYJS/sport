@@ -14,17 +14,18 @@
 <script type="text/javascript" src="/sport/easyui/jquery.easyui.min.js"></script>
 <script type="text/javascript"
 	src="/sport/easyui/locale/easyui-lang-zh_CN.js"></script>
+<script type="text/javascript" src="/sport/js/myjs.js"></script>
 </head>
 <body>
 	<div id="p" class="easyui-panel" title="商品列表"
 		style="width: 1200px; height: 480px; padding: 10px; background: #fafafa;"
 		data-options="iconCls:'icon-save',closable:true,    
                 collapsible:true">
-		<a id="btn" href="/sport/ToAddGoodsServlet" class="easyui-linkbutton"
-			data-options="iconCls:'icon-add',plain:true">Add</a> <a id="btn"
+		<a id="add" href="/sport/ToAddGoodsServlet" class="easyui-linkbutton"
+			data-options="iconCls:'icon-add',plain:true">Add</a> <a id="remove"
 			href="#" class="easyui-linkbutton"
 			data-options="iconCls:'icon-remove',plain:true">Remove</a> <a
-			id="btn" href="/sport/ToModifyServlet" class="easyui-linkbutton"
+			id="edit" class="easyui-linkbutton"
 			data-options="iconCls:'icon-edit',plain:true">Edit</a>
 		<table class="easyui-datagrid">
 			<thead>
@@ -46,7 +47,7 @@
 			<tbody>
 				<c:forEach var="goods" items="${goodses }">
 					<tr>
-						<td><input type="checkbox" /></td>
+						<td><input type="checkbox" value="${goods.gid }" /></td>
 						<td><c:out value="${goods.name }"></c:out></td>
 						<td><c:out value="${goods.cate.name }"></c:out></td>
 						<td><c:out value="${goods.brand }"></c:out></td>
@@ -57,7 +58,7 @@
 						<td><c:out value="${goods.des }"></c:out></td>
 						<td><c:out value="${goods.imgPath }"></c:out></td>
 						<td><c:out value="${goods.activity.name }"></c:out></td>
-						<td><c:out value="${goods.actprice }"></c:out></td>
+						<td><c:out value="${goods.actPrice }"></c:out></td>
 					</tr>
 				</c:forEach>
 			</tbody>

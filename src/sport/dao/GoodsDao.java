@@ -8,8 +8,6 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import sport.entity.Activity;
-import sport.entity.Cate;
 import sport.entity.Goods;
 import sport.service.ActivityService;
 import sport.service.CateService;
@@ -35,7 +33,7 @@ public class GoodsDao {
 			pStat.setInt(3, goods.getCate().getCatid());
 			pStat.setString(4, goods.getName());
 			pStat.setDouble(5, goods.getPrice());
-			pStat.setDouble(6, goods.getActprice());
+			pStat.setDouble(6, goods.getActPrice());
 			pStat.setInt(7, goods.getSales());
 			pStat.setInt(8, goods.getAmount());
 			pStat.setString(9, goods.getBrand());
@@ -57,6 +55,57 @@ public class GoodsDao {
 		}
 	}
 
+	public Goods getGoodsByGid(int gid) {
+		Connection conn = DBConnection.getConnection();
+		PreparedStatement pStat = null;
+		ResultSet rs = null;
+		Goods goods = null;
+		String sql = "select * from goods where gid=?";
+
+		try {
+			pStat = conn.prepareStatement(sql);
+			pStat.setInt(1, gid);
+			rs = pStat.executeQuery();
+			if (rs.next()) {
+				goods = new Goods();
+				goods.setGid(gid);
+				goods.setSid(rs.getInt(2));
+				goods.setActivity(new ActivityService().getActivityByActid(rs
+						.getInt(3)));
+				goods.setCate(new CateService().getCateByCateid(rs.getInt(4)));
+				goods.setName(rs.getString(5));
+				goods.setPrice(rs.getDouble(6));
+				goods.setActPrice(rs.getDouble(7));
+				goods.setSales(rs.getInt(8));
+				goods.setAmount(rs.getInt(9));
+				goods.setBrand(rs.getString(10));
+				goods.setPopularity(rs.getInt(11));
+				goods.setImgPath(rs.getString(12));
+				goods.setDes(rs.getString(13));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if (null != rs) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if (null != pStat) {
+				try {
+					pStat.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			DBConnection.close(conn);
+		}
+
+		return goods;
+	}
+
 	// 查询所有商品
 	public List<Goods> getAll() {
 		Connection conn = DBConnection.getConnection();
@@ -73,21 +122,14 @@ public class GoodsDao {
 				goods.setGid(rs.getInt(1));
 				goods.setSid(rs.getInt(2));
 
-				ActivityService activityService = new ActivityService();
-				Activity activity = new Activity();
-				activity.setActid(rs.getInt(3));
-				activity.setName(activityService.getNameByActid(rs.getInt(3)));
-				goods.setActivity(activity);
+				goods.setActivity(new ActivityService().getActivityByActid(rs
+						.getInt(3)));
 
-				CateService cateService = new CateService();
-				Cate cate = new Cate();
-				cate.setCatid(rs.getInt(4));
-				cate.setName(cateService.getNameByCateid(rs.getInt(4)));
-				goods.setCate(cate);
+				goods.setCate(new CateService().getCateByCateid(rs.getInt(4)));
 
 				goods.setName(rs.getString(5));
 				goods.setPrice(rs.getDouble(6));
-				goods.setActprice(rs.getDouble(7));
+				goods.setActPrice(rs.getDouble(7));
 				goods.setSales(rs.getInt(8));
 				goods.setAmount(rs.getInt(9));
 				goods.setBrand(rs.getString(10));

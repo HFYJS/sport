@@ -12,7 +12,7 @@ public class CateService {
 		return dao.search();
 	}
 
-	public String getNameByCateid(int catid) {
-		return dao.getNameByCatid(catid);
+	public Cate getCateByCateid(int catId) {
+		return dao.getCateByCatid(catId);
 	}
 }
