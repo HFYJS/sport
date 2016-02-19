@@ -72,7 +72,7 @@ public class GoodsDao {
 				goods.setSid(rs.getInt(2));
 				goods.setActivity(new ActivityService().getActivityByActid(rs
 						.getInt(3)));
-				goods.setCate(new CateService().getCateByCateid(rs.getInt(4)));
+				goods.setCate(new CateService().getCateByCatid(rs.getInt(4)));
 				goods.setName(rs.getString(5));
 				goods.setPrice(rs.getDouble(6));
 				goods.setActPrice(rs.getDouble(7));
@@ -125,7 +125,7 @@ public class GoodsDao {
 				goods.setActivity(new ActivityService().getActivityByActid(rs
 						.getInt(3)));
 
-				goods.setCate(new CateService().getCateByCateid(rs.getInt(4)));
+				goods.setCate(new CateService().getCateByCatid(rs.getInt(4)));
 
 				goods.setName(rs.getString(5));
 				goods.setPrice(rs.getDouble(6));
@@ -164,7 +164,63 @@ public class GoodsDao {
 	public void modify(Goods goods) {
 		Connection conn = DBConnection.getConnection();
 		PreparedStatement pStat = null;
-		String sql = "update goods set actid=?,";
+		String sql = "update goods set actid=?,catid=?,name=?,price=?,actprice=?,sales=?,amount=?,brand=?,popularity=?,imgpath=?,des=? where gid=?";
+
+		try {
+			pStat = conn.prepareStatement(sql);
+			pStat.setInt(1, goods.getActivity().getActid());
+			pStat.setInt(2, goods.getCate().getCatid());
+			pStat.setString(3, goods.getName());
+			pStat.setDouble(4, goods.getPrice());
+			pStat.setDouble(5, goods.getActPrice());
+			pStat.setInt(6, goods.getSales());
+			pStat.setInt(7, goods.getAmount());
+			pStat.setString(8, goods.getBrand());
+			pStat.setInt(9, goods.getPopularity());
+			pStat.setString(10, goods.getImgPath());
+			pStat.setString(11, goods.getDes());
+			pStat.setInt(12, goods.getGid());
+			pStat.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if (null != pStat) {
+				try {
+					pStat.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			DBConnection.close(conn);
+		}
 	}
 
+	public void remove(int gid) {
+		Connection conn = DBConnection.getConnection();
+		PreparedStatement pStat = null;
+		String sql = "delete from goods where gid=?";
+
+		try {
+			pStat = conn.prepareStatement(sql);
+			pStat.setInt(1, gid);
+			pStat.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if (null != pStat) {
+				try {
+					pStat.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			DBConnection.close(conn);
+		}
+	}
+
+	public void remove(int[] gids) {
+		for (int i : gids) {
+			remove(i);
+		}
+	}
 }

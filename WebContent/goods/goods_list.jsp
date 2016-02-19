@@ -14,7 +14,7 @@
 <script type="text/javascript" src="/sport/easyui/jquery.easyui.min.js"></script>
 <script type="text/javascript"
 	src="/sport/easyui/locale/easyui-lang-zh_CN.js"></script>
-<script type="text/javascript" src="/sport/js/myjs.js"></script>
+<script type="text/javascript" src="/sport/js/goods_list.js"></script>
 </head>
 <body>
 	<div id="p" class="easyui-panel" title="商品列表"
@@ -23,14 +23,14 @@
                 collapsible:true">
 		<a id="add" href="/sport/ToAddGoodsServlet" class="easyui-linkbutton"
 			data-options="iconCls:'icon-add',plain:true">Add</a> <a id="remove"
-			href="#" class="easyui-linkbutton"
+			class="easyui-linkbutton"
 			data-options="iconCls:'icon-remove',plain:true">Remove</a> <a
 			id="edit" class="easyui-linkbutton"
 			data-options="iconCls:'icon-edit',plain:true">Edit</a>
 		<table class="easyui-datagrid">
 			<thead>
 				<tr>
-					<th data-options="field:'check'"><input type="checkbox" /></th>
+					<th data-options="field:'check'"><input type="hidden" /></th>
 					<th data-options="field:'name'">名称</th>
 					<th data-options="field:'cate'">分类</th>
 					<th data-options="field:'brand'">品牌</th>

@@ -24,4 +24,11 @@ public class GoodsService {
 		return dao.getAll();
 	}
 
+	public void modify(Goods goods) {
+		dao.modify(goods);
+	}
+
+	public void remove(int[] gids) {
+		dao.remove(gids);
+	}
 }

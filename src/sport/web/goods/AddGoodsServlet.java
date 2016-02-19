@@ -44,7 +44,7 @@ public class AddGoodsServlet extends HttpServlet {
 		String name = request.getParameter("name");// 获取商品名
 		// 获取商品分类
 		int catId = Integer.parseInt(request.getParameter("catid"));
-		Cate cate = new CateService().getCateByCateid(catId);
+		Cate cate = new CateService().getCateByCatid(catId);
 		String brand = request.getParameter("brand");// 获取商品品牌
 		Double price = Double.parseDouble(request.getParameter("price"));// 获取商品价格
 		int amount = Integer.parseInt(request.getParameter("amount"));// 获取商品总数

@@ -14,19 +14,22 @@
 <script type="text/javascript" src="/sport/easyui/jquery.easyui.min.js"></script>
 <script type="text/javascript"
 	src="/sport/easyui/locale/easyui-lang-zh_CN.js"></script>
+<script type="text/javascript" src="/sport/js/goods_modify.js"></script>
 </head>
 <body>
 	<div id="p" class="easyui-panel" title="商品修改"
 		style="width: 1200px; height: 480px; padding: 10px; background: #fafafa;"
 		data-options="iconCls:'icon-save',collapsible:true">
-		<form method="post" action="/sport/AddGoodsServlet">
-			<input type="hidden" name="sid" value="1" /> 商品名称：<input type="text"
-				name="name" value="${goods.name }" /><br> <br>
-			分&nbsp;&nbsp;类：<select name="catid"><c:forEach var="cate"
-					items="${cates }">
+		<form method="post" action="/sport/ModifyGoodsServlet">
+			<input type="hidden" name="gid" value="${goods.gid }" /> <input
+				type="hidden" name="sid" value="${goods.sid }" /> 商品名称：<input
+				type="text" name="name" value="${goods.name }" /><br> <br>
+			分&nbsp;&nbsp;类：<select id="${goods.cate.catid }" name="catid">
+				<c:forEach var="cate" items="${cates }">
 					<option value="${cate.catid }"><c:out
 							value="${cate.name }"></c:out></option>
-				</c:forEach></select><br> <br> 品&nbsp;&nbsp;牌：<input type="text" name="brand"
+				</c:forEach>
+			</select> <br> <br> 品&nbsp;&nbsp;牌：<input type="text" name="brand"
 				value="${goods.brand }" /><br> <br> 价&nbsp;&nbsp;格：<input
 				type="text" name="price" value="${goods.price }" /><br> <br>
 			总&nbsp;&nbsp;数：<input type="text" name="amount"
