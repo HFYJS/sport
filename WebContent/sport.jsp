@@ -4,22 +4,26 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>运动圈——商家管理系统</title>
+<title>欢迎来到——运动圈商家管理系统</title>
 <link rel="stylesheet" type="text/css"
 	href="/sport/easyui/themes/default/easyui.css">
-<link rel="stylesheet" type="text/css" href="/sport/easyui/themes/icon.css">
+<link rel="stylesheet" type="text/css"
+	href="/sport/easyui/themes/icon.css">
 <script type="text/javascript" src="/sport/easyui/jquery.min.js"></script>
 <script type="text/javascript" src="/sport/easyui/jquery.easyui.min.js"></script>
-<script type="text/javascript" src="/sport/easyui/locale/easyui-lang-zh_CN.js"></script>
+<script type="text/javascript"
+	src="/sport/easyui/locale/easyui-lang-zh_CN.js"></script>
 </head>
 <body class="easyui-layout">
-	<div data-options="region:'north',title:'用户名：HFY'"
-		style="height: 150px;"></div>
+	<div data-options="region:'north',title:'用户名：${shop.user.name }'"
+		style="height: 200px;">
+		<image src="/sport/img/1.png" width="100%" height="100%" />
+	</div>
 	<div data-options="region:'west',title:'导航',split:true"
 		style="width: 150px;"></div>
 	<div data-options="region:'center',title:'业务中心'"
 		style="padding: 5px; background: #eee;">
-		<iframe src="/sport/ToGoodsListServlet" width="1200px" height="480px"
+		<iframe src="/sport/ToGoodsListServlet" width="100%" height="100%"
 			frameborder="no" marginwidth="0" marginheight="0"> </iframe>
 	</div>
 </body>

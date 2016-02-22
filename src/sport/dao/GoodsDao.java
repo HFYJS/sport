@@ -22,7 +22,6 @@ public class GoodsDao {
 	public void add(Goods goods) {
 		Connection conn = DBConnection.getConnection();
 		PreparedStatement pStat = null;
-		boolean flag = false;
 		String sql = "insert into goods(sid,actid,catid,name,price,actprice,sales,amount,brand,popularity,imgpath,des)"
 				+ "values(?,?,?,?,?,?,?,?,?,?,?,?)";
 
@@ -222,5 +221,77 @@ public class GoodsDao {
 		for (int i : gids) {
 			remove(i);
 		}
+	}
+
+	public List<Goods> getPagedGoodses(int curPage, int pageSize) {
+		Connection conn = DBConnection.getConnection();
+		Statement stat = null;
+		ResultSet rs = null;
+		List<Goods> goodses = null;
+		String sql = "select gid from goods limit " + (curPage - 1) * pageSize
+				+ "," + pageSize;
+
+		try {
+			goodses = new ArrayList<Goods>();
+			stat = conn.createStatement();
+			rs = stat.executeQuery(sql);
+			while (rs.next()) {
+				goodses.add(getGoodsByGid(rs.getInt(1)));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if (null != rs) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if (null != stat) {
+				try {
+					stat.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			DBConnection.close(conn);
+		}
+		return goodses;
+	}
+
+	public int getCount() {
+		Connection conn = DBConnection.getConnection();
+		Statement stat = null;
+		ResultSet rs = null;
+		int count = 0;
+		String sql = "select count(*) from goods";
+
+		try {
+			stat = conn.createStatement();
+			rs = stat.executeQuery(sql);
+			if (rs.next()) {
+				count = rs.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if (null != rs) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if (null != stat) {
+				try {
+					stat.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			DBConnection.close(conn);
+		}
+		return count;
 	}
 }

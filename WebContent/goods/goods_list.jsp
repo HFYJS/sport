@@ -18,7 +18,7 @@
 </head>
 <body>
 	<div id="p" class="easyui-panel" title="商品列表"
-		style="width: 1200px; height: 480px; padding: 10px; background: #fafafa;"
+		style="width: 704px; height: 435px; padding: 10px; background: #fafafa;"
 		data-options="iconCls:'icon-save',closable:true,    
                 collapsible:true">
 		<a id="add" href="/sport/ToAddGoodsServlet" class="easyui-linkbutton"
@@ -63,9 +63,21 @@
 				</c:forEach>
 			</tbody>
 		</table>
-		<div id="pp" class="easyui-pagination"
-			data-options="total:2000,pageSize:10"
-			style="background: #efefef; border: 1px solid #ccc;"></div>
+		<table width='100%' class="tex004">
+			<tr>
+				<td align='left' width="310px"><a href='/sport/ToGoodsListServlet?curPage=1'><span>首页</span></a>
+					<c:if test="${curPage!=1 }">
+						<a href='/sport/ToGoodsListServlet?curPage=${curPage-1 }'><span>上一页</span></a>
+					</c:if> <c:if test="${curPage!=pages }">
+						<a href='/sport/ToGoodsListServlet?curPage=${curPage+1 }'><span>下一页</span></a>
+					</c:if> <a href='/sport/ToGoodsListServlet?curPage=${pages }'>尾页</a></td>
+				<td align='left'>第<c:out value="${curPage }"></c:out>页
+				</td>
+				<td align='left'>共<c:out value="${count }"></c:out>项&nbsp;&nbsp;<c:out
+						value="${pages }"></c:out>页
+				</td>
+			</tr>
+		</table>
 	</div>
 </body>
 </html>

@@ -31,4 +31,12 @@ public class GoodsService {
 	public void remove(int[] gids) {
 		dao.remove(gids);
 	}
+
+	public List<Goods> getPagedGoodses(int curPage, int pageSize) {
+		return dao.getPagedGoodses(curPage, pageSize);
+	}
+
+	public int getCount() {
+		return dao.getCount();
+	}
 }
