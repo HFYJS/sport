@@ -34,7 +34,7 @@ public class LoginServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		ShopService shopService = new ShopService();
-		String name = request.getParameter("login");
+		String name = request.getParameter("username");
 		String pwd = request.getParameter("password");
 		int code = shopService.login(name, pwd);
 		if (code == 1) {
