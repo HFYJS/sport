@@ -4,8 +4,11 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 import sport.entity.User;
+import sport.service.UserService;
 import sport.util.DBConnection;
 
 public class UserDao {
@@ -105,6 +108,47 @@ public class UserDao {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+
 		return user;
+	}
+
+	public List<User> getAllUsers() {
+		Connection conn = DBConnection.getConnection();
+		Statement stat = null;
+		ResultSet rs = null;
+		List<User> users = new ArrayList<User>();
+		String sql = "select uid from user order by uid";
+
+		try {
+			stat = conn.createStatement();
+			rs = stat.executeQuery(sql);
+			while (rs.next()) {
+				User user = new UserService().getUserByUid(rs.getInt(1));
+				users.add(user);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			if (null != rs) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			if (null != stat) {
+				try {
+					stat.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			DBConnection.close(conn);
+		}
+
+		return users;
 	}
 }

@@ -4,9 +4,12 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 import sport.entity.Shop;
 import sport.service.CateService;
+import sport.service.ShopService;
 import sport.service.UserService;
 import sport.util.DBConnection;
 
@@ -100,7 +103,7 @@ public class ShopDao {
 					e.printStackTrace();
 				}
 			}
-			if(null!=stat){
+			if (null != stat) {
 				try {
 					stat.close();
 				} catch (SQLException e) {
@@ -112,4 +115,43 @@ public class ShopDao {
 		return shop;
 	}
 
+	public List<Shop> getAllShops() {
+		Connection conn = DBConnection.getConnection();
+		Statement stat = null;
+		ResultSet rs = null;
+		List<Shop> shops = new ArrayList<Shop>();
+		String sql = "select sid from shop order by sid";
+
+		try {
+			stat = conn.createStatement();
+			rs = stat.executeQuery(sql);
+			while (rs.next()) {
+				Shop shop = new ShopService().getShopBySid(rs.getInt(1));
+				shops.add(shop);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			if (null != rs) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			if (null != stat) {
+				try {
+					stat.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			DBConnection.close(conn);
+		}
+		
+		return shops;
+	}
 }

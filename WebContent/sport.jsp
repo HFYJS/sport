@@ -17,6 +17,20 @@
 			</div>
 			<div class="ad-list">
 				<ul>
+
+					<li>
+						<div class="li-item">
+							<em class="scm li-ico ic2"></em>店面管理<span class="scm arrow"></span>
+						</div>
+						<dl>
+							<dd>
+								<a href="#" class="dd-item">店面信息<span class="scm dd-ar"></span></a>
+							</dd>
+							<dd>
+								<a href="#" class="dd-item">修改信息<span class="scm dd-ar"></span></a>
+							</dd>
+						</dl>
+					</li>
 					<li>
 						<div class="li-item">
 							<em class="scm li-ico ic1"></em>商品管理<span class="scm arrow"></span>
@@ -42,14 +56,24 @@
 					</li>
 					<li>
 						<div class="li-item">
-							<em class="scm li-ico ic2"></em>店面管理<span class="scm arrow"></span>
+							<em class="scm li-ico ic1"></em>销售管理<span class="scm arrow"></span>
 						</div>
 						<dl>
 							<dd>
-								<a href="#" class="dd-item">店面信息<span class="scm dd-ar"></span></a>
+								<a href="#" class="dd-item">订单处理<span class="scm dd-ar"></span></a>
+								<ul class="ad-item-list">
+									<li class="J_menuItem" href="index_v1.html" data-index="1">测试用例一</li>
+									<li class="J_menuItem" href="index_v2.html" data-index="2">测试用例二</li>
+									<li class="J_menuItem" href="index_v3.html" data-index="3">测试用例三</li>
+								</ul>
 							</dd>
 							<dd>
-								<a href="#" class="dd-item">修改信息<span class="scm dd-ar"></span></a>
+								<a href="#" class="dd-item">发货处理<span class="scm dd-ar"></span></a>
+								<ul class="ad-item-list">
+									<li class="J_menuItem" href="index_v1.html" data-index="1">测试用例一</li>
+									<li class="J_menuItem" href="index_v2.html" data-index="2">测试用例二</li>
+									<li class="J_menuItem" href="index_v3.html" data-index="3">测试用例三</li>
+								</ul>
 							</dd>
 						</dl>
 					</li>

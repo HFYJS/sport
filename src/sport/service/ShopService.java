@@ -1,5 +1,7 @@
 package sport.service;
 
+import java.util.List;
+
 import sport.dao.ShopDao;
 import sport.entity.Shop;
 import sport.iter.Login;
@@ -41,4 +43,7 @@ public class ShopService implements Login {
 		return dao.getShopBySid(sid);
 	}
 
+	public List<Shop> getAllShops() {
+		return dao.getAllShops();
+	}
 }
