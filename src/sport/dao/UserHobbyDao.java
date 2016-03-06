@@ -7,29 +7,28 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import sport.entity.Goods;
-import sport.service.GoodsService;
+import sport.entity.Hobby;
+import sport.service.HobbyService;
 import sport.util.DBConnection;
 
-public class GoodsFavoritesDao {
-
-	public GoodsFavoritesDao() {
+public class UserHobbyDao {
+	public UserHobbyDao() {
 
 	}
 
-	public List<Goods> getAllGoodsesByUid(int uid) {
+	public List<Hobby> getAllHobbiesByUid(int uid) {
 		Connection conn = DBConnection.getConnection();
 		Statement stat = null;
 		ResultSet rs = null;
-		List<Goods> goodses = new ArrayList<Goods>();
-		String sql = "select gid from goods_favorites where uid=" + uid;
+		List<Hobby> hobbies = new ArrayList<Hobby>();
+		String sql = "select hobid from user_hobby where uid=" + uid;
 
 		try {
 			stat = conn.createStatement();
 			rs = stat.executeQuery(sql);
 			while (rs.next()) {
-				Goods goods = new GoodsService().getGoodsByGid(rs.getInt(1));
-				goodses.add(goods);
+				Hobby hobby = new HobbyService().getHobbyByHobid(rs.getInt(1));
+				hobbies.add(hobby);
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -54,6 +53,6 @@ public class GoodsFavoritesDao {
 			DBConnection.close(conn);
 		}
 
-		return goodses;
+		return hobbies;
 	}
 }

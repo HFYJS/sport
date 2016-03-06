@@ -4,38 +4,34 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.List;
 
-import sport.entity.Goods;
-import sport.service.GoodsService;
+import sport.entity.Hobby;
 import sport.util.DBConnection;
 
-public class GoodsFavoritesDao {
-
-	public GoodsFavoritesDao() {
+public class HobbyDao {
+	public HobbyDao() {
 
 	}
 
-	public List<Goods> getAllGoodsesByUid(int uid) {
+	public Hobby getHobbyByHobid(int hobid) {
 		Connection conn = DBConnection.getConnection();
 		Statement stat = null;
 		ResultSet rs = null;
-		List<Goods> goodses = new ArrayList<Goods>();
-		String sql = "select gid from goods_favorites where uid=" + uid;
+		Hobby hobby = new Hobby();
+		String sql = "select * from hobby where hobid=" + hobid;
 
 		try {
 			stat = conn.createStatement();
 			rs = stat.executeQuery(sql);
-			while (rs.next()) {
-				Goods goods = new GoodsService().getGoodsByGid(rs.getInt(1));
-				goodses.add(goods);
+			if (rs.next()) {
+				hobby.setHobid(hobid);
+				hobby.setName(rs.getString(2));
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} finally {
-			if (null != rs) {
+		}finally{
+			if(null!=rs){
 				try {
 					rs.close();
 				} catch (SQLException e) {
@@ -43,7 +39,7 @@ public class GoodsFavoritesDao {
 					e.printStackTrace();
 				}
 			}
-			if (null != stat) {
+			if(null!=stat){
 				try {
 					stat.close();
 				} catch (SQLException e) {
@@ -53,7 +49,6 @@ public class GoodsFavoritesDao {
 			}
 			DBConnection.close(conn);
 		}
-
-		return goodses;
+		return hobby;
 	}
 }

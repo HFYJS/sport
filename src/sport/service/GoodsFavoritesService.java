@@ -8,7 +8,7 @@ import sport.entity.Goods;
 public class GoodsFavoritesService {
 	private GoodsFavoritesDao dao = new GoodsFavoritesDao();
 
-	public List<Goods> getAllGoods(int uid) {
-		return dao.getAllGoods(uid);
+	public List<Goods> getAllGoodsesByUid(int uid) {
+		return dao.getAllGoodsesByUid(uid);
 	}
 }

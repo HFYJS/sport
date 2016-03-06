@@ -39,7 +39,7 @@ public class GoodsService {
 	public int getCount() {
 		return dao.getCount();
 	}
-	
+
 	public List<Goods> getAllGoodsBySid(int sid) {
 		return dao.getAllGoodsBySid(sid);
 	}

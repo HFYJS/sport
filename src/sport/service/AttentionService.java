@@ -11,4 +11,9 @@ public class AttentionService {
 	public List<User> getAllFans(int aid) {
 		return dao.getAllFans(aid);
 	}
+
+	public List<User> getAllAttentionsByUid(int uid) {
+		// TODO Auto-generated method stub
+		return dao.getAllAttentionsByUid(uid);
+	}
 }
