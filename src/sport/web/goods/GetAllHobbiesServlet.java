@@ -1,7 +1,6 @@
 package sport.web.goods;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -10,22 +9,22 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import sport.entity.Goods;
-import sport.service.GoodsFavoritesService;
+import sport.entity.Hobby;
+import sport.service.HobbyService;
 
 import com.google.gson.Gson;
 
 /**
- * Servlet implementation class GetAllGoodsesByGidServlet
+ * Servlet implementation class GetAllHobbiesServlet
  */
-@WebServlet("/GetAllFavoritesGoodsesByUidServlet")
-public class GetAllFavoritesGoodsesByUidServlet extends HttpServlet {
+@WebServlet("/GetAllHobbiesServlet")
+public class GetAllHobbiesServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public GetAllFavoritesGoodsesByUidServlet() {
+	public GetAllHobbiesServlet() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -37,12 +36,9 @@ public class GetAllFavoritesGoodsesByUidServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		int uid = Integer.parseInt(request.getParameter("uid"));
-		GoodsFavoritesService goodsFavoritesService = new GoodsFavoritesService();
-		List<Goods> goodses = goodsFavoritesService.getAllGoodsesByUid(uid);
-		PrintWriter out = response.getWriter();
+		List<Hobby> hobbies = new HobbyService().getAllHobbies();
 
-		out.print(new Gson().toJson(goodses));
+		response.getWriter().print(new Gson().toJson(hobbies));
 	}
 
 	/**

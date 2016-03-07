@@ -1,6 +1,7 @@
 package sport.dao;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -150,5 +151,42 @@ public class UserDao {
 		}
 
 		return users;
+	}
+
+	public boolean updateUserInfo(User user) {
+		// TODO Auto-generated method stub
+		Connection conn = DBConnection.getConnection();
+		PreparedStatement pStat = null;
+		boolean flag = false;
+		String sql = "update user set name=?,sex=?,age=?,tel=?,race=?,native=? where uid=?";
+
+		try {
+			pStat = conn.prepareStatement(sql);
+			pStat.setString(1, user.getName());
+			pStat.setString(2, user.getSex());
+			pStat.setInt(3, user.getAge());
+			pStat.setString(4, user.getTel());
+			pStat.setString(5, user.getRace());
+			pStat.setString(6, user.getNati());
+			pStat.setInt(7, user.getUid());
+			if (pStat.executeUpdate() > 0) {
+				flag = true;
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			if (null != pStat) {
+				try {
+					pStat.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			DBConnection.close(conn);
+		}
+
+		return flag;
 	}
 }

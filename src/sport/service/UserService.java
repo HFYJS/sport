@@ -32,4 +32,9 @@ public class UserService implements Login {
 		return dao.getUserByUid(uid);
 	}
 
+	public boolean updateUserInfo(User user) {
+		// TODO Auto-generated method stub
+		return dao.updateUserInfo(user);
+	}
+
 }
