@@ -2,14 +2,14 @@ package sport.entity;
 
 import java.util.Date;
 
-public class Shoppingcart {
+public class ShoppingCart {
 	private int cartid;
-	private User user;
-	private Goods goods;
+	private int uid;
+	private int gid;
 	private int count;
 	private Date date;
 
-	public Shoppingcart() {
+	public ShoppingCart() {
 
 	}
 
@@ -21,20 +21,20 @@ public class Shoppingcart {
 		this.cartid = cartid;
 	}
 
-	public User getUser() {
-		return user;
+	public int getUid() {
+		return uid;
 	}
 
-	public void setUser(User user) {
-		this.user = user;
+	public void setUid(int uid) {
+		this.uid = uid;
 	}
 
-	public Goods getGoods() {
-		return goods;
+	public int getGid() {
+		return gid;
 	}
 
-	public void setGoods(Goods goods) {
-		this.goods = goods;
+	public void setGid(int gid) {
+		this.gid = gid;
 	}
 
 	public int getCount() {

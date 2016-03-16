@@ -3,40 +3,40 @@ package sport.entity;
 import java.util.Date;
 
 public class PostComment {
-	private int p_comid;
-	private Post post;
-	private User user;
+	private int pComid;
+	private int pid;
+	private int uid;
 	private Date date;
 	private String content;
-	private PostComment postComment;
+	private int prePComid;
 	private int isLast;
 
 	public PostComment() {
 
 	}
 
-	public int getP_comid() {
-		return p_comid;
+	public int getpComid() {
+		return pComid;
 	}
 
-	public void setP_comid(int p_comid) {
-		this.p_comid = p_comid;
+	public void setpComid(int pComid) {
+		this.pComid = pComid;
 	}
 
-	public Post getPost() {
-		return post;
+	public int getPid() {
+		return pid;
 	}
 
-	public void setPost(Post post) {
-		this.post = post;
+	public void setPid(int pid) {
+		this.pid = pid;
 	}
 
-	public User getUser() {
-		return user;
+	public int getUid() {
+		return uid;
 	}
 
-	public void setUser(User user) {
-		this.user = user;
+	public void setUid(int uid) {
+		this.uid = uid;
 	}
 
 	public Date getDate() {
@@ -55,12 +55,12 @@ public class PostComment {
 		this.content = content;
 	}
 
-	public PostComment getPostComment() {
-		return postComment;
+	public int getPrePComid() {
+		return prePComid;
 	}
 
-	public void setPostComment(PostComment postComment) {
-		this.postComment = postComment;
+	public void setPrePComid(int prePComid) {
+		this.prePComid = prePComid;
 	}
 
 	public int getIsLast() {

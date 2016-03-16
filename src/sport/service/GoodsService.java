@@ -24,6 +24,10 @@ public class GoodsService {
 		return dao.getAll();
 	}
 
+	public List<Goods> getAllGoodsesBySid(int sid) {
+		return dao.getAllGoodsesBySid(sid);
+	}
+	
 	public void modify(Goods goods) {
 		dao.modify(goods);
 	}

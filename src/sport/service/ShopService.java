@@ -46,4 +46,9 @@ public class ShopService implements Login {
 	public List<Shop> getAllShops() {
 		return dao.getAllShops();
 	}
+
+	public List<Shop> getPagedShopsByCatid(int catid, int pageStart,
+			int pageSize) {
+		return dao.getPagedShopsByCatid(catid, pageStart, pageSize);
+	}
 }

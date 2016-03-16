@@ -2,7 +2,9 @@ package sport.web.goods;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,24 +12,24 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import sport.entity.Hobby;
-import sport.entity.User;
-import sport.service.UserHobbyService;
-import sport.service.UserService;
+import sport.entity.Goods;
+import sport.entity.ShoppingCart;
+import sport.service.GoodsService;
+import sport.service.ShoppingCartService;
 
 import com.google.gson.Gson;
 
 /**
- * Servlet implementation class GetUserInfoByUidServlet
+ * Servlet implementation class GetShoppingCartByUidServlet
  */
-@WebServlet("/GetUserInfoByUidServlet")
-public class GetUserInfoByUidServlet extends HttpServlet {
+@WebServlet("/GetShoppingCartByUidServlet")
+public class GetShoppingCartByUidServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public GetUserInfoByUidServlet() {
+	public GetShoppingCartByUidServlet() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -40,14 +42,20 @@ public class GetUserInfoByUidServlet extends HttpServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		int uid = Integer.parseInt(request.getParameter("uid"));
-		UserService userService = new UserService();
-		User user = userService.getUserByUid(uid);
-		List<String> list = new ArrayList<String>();
-		list.add(new Gson().toJson(user));
 
-		UserHobbyService userHobbyService = new UserHobbyService();
-		List<Hobby> hobbies = userHobbyService.getAllHobbiesByUid(uid);
-		list.add(new Gson().toJson(hobbies));
+		ShoppingCartService shoppingCartService = new ShoppingCartService();
+		GoodsService goodsService = new GoodsService();
+		List<ShoppingCart> shoppingCart = shoppingCartService
+				.getShoppingCartByUid(uid);
+		List<Map<String, String>> list = new ArrayList<Map<String, String>>();
+
+		for (ShoppingCart sc : shoppingCart) {
+			Map<String, String> map = new HashMap<String, String>();
+			Goods goods = goodsService.getGoodsByGid(sc.getGid());
+			map.put("goods", new Gson().toJson(goods));
+			map.put("count", sc.getCount() + "");
+			list.add(map);
+		}
 		
 		response.getWriter().print(new Gson().toJson(list));
 	}
