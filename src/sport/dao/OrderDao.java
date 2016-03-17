@@ -25,7 +25,7 @@ public class OrderDao {
 		ResultSet rs = null;
 		List<OrderForm> orderForms = new ArrayList<OrderForm>();
 		String sql = "select * from order_form where uid=" + uid;
-
+		
 		try {
 			stat = conn.createStatement();
 			rs = stat.executeQuery(sql);

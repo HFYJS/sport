@@ -159,12 +159,13 @@ public class GoodsDao {
 		return goodses;
 	}
 
-	public List<Goods> getAllGoodsesBySid(int sid) {
+	public List<Goods> getAllGoodsesBySidOrderByPopularity(int sid) {
 		Connection conn = DBConnection.getConnection();
 		Statement stat = null;
 		ResultSet rs = null;
 		List<Goods> goodses = new ArrayList<Goods>();
-		String sql = "select * from goods where sid=" + sid;
+		String sql = "select * from goods where sid=" + sid
+				+ " order by popularity desc";
 
 		try {
 			stat = conn.createStatement();
@@ -354,6 +355,61 @@ public class GoodsDao {
 		ResultSet rs = null;
 		List<Goods> goodses = new ArrayList<Goods>();
 		String sql = "select * from goods where sid=" + sid;
+
+		try {
+			stat = conn.createStatement();
+			rs = stat.executeQuery(sql);
+			while (rs.next()) {
+				Goods goods = new Goods();
+				goods.setGid(rs.getInt(1));
+				goods.setSid(rs.getInt(2));
+
+				goods.setActivity(new ActivityService().getActivityByActid(rs
+						.getInt(3)));
+
+				goods.setCate(new CateService().getCateByCatid(rs.getInt(4)));
+
+				goods.setName(rs.getString(5));
+				goods.setPrice(rs.getDouble(6));
+				goods.setActPrice(rs.getDouble(7));
+				goods.setSales(rs.getInt(8));
+				goods.setAmount(rs.getInt(9));
+				goods.setBrand(rs.getString(10));
+				goods.setPopularity(rs.getInt(11));
+				goods.setImgPath(rs.getString(12));
+				goods.setDes(rs.getString(13));
+				goodses.add(goods);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if (null != rs) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if (null != stat) {
+				try {
+					stat.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			DBConnection.close(conn);
+		}
+		return goodses;
+	}
+
+	public List<Goods> getAllGoodsesBySidOrderBySales(int sid) {
+		// TODO Auto-generated method stub
+		Connection conn = DBConnection.getConnection();
+		Statement stat = null;
+		ResultSet rs = null;
+		List<Goods> goodses = new ArrayList<Goods>();
+		String sql = "select * from goods where sid=" + sid
+				+ " order by sales desc";
 
 		try {
 			stat = conn.createStatement();

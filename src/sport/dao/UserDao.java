@@ -189,4 +189,40 @@ public class UserDao {
 
 		return flag;
 	}
+
+	public void addUser(String name, String pwd) {
+		PreparedStatement prep = null;
+		Connection conn = null;
+		conn = DBConnection.getConnection();
+		String sql = "insert into user (name,password) values (?,?)";
+
+		try {
+			prep = conn.prepareStatement(sql);
+			prep.setString(1, name);
+			prep.setString(2, pwd);
+			prep.execute();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			if (prep != null) {
+				try {
+					prep.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+
+		}
+
+	}
 }

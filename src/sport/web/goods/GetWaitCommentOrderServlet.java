@@ -2,7 +2,6 @@ package sport.web.goods;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -17,20 +16,18 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
 
-import sport.entity.Goods;
 import sport.entity.OrderDetail;
 import sport.entity.OrderForm;
-import sport.entity.Shop;
 import sport.entity.temp.Order;
 import sport.entity.temp.OrderInfo;
 import sport.service.OrderService;
 import sport.service.ShopService;
 
 /**
- * Servlet implementation class GetAllOrdersServlet
+ * Servlet implementation class GetWaitCommentOrderServlet
  */
-@WebServlet("/GetAllOrdersByUidServlet")
-public class GetAllOrdersByUidServlet extends HttpServlet {
+@WebServlet("/GetWaitCommentOrderServlet")
+public class GetWaitCommentOrderServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
@@ -43,15 +40,20 @@ public class GetAllOrdersByUidServlet extends HttpServlet {
 		//获取orderform
 		int uid = Integer.parseInt(request.getParameter("uid"));
 		//获取orderdetails
-		List<Integer> oids = service.getOidByUid(uid);
+		List<Integer> oids = new ArrayList<Integer>();
 		List<List<OrderDetail>> orderdetailslist = new ArrayList<List<OrderDetail>>();
+		List<OrderForm> orderformls = service.getAllOrderFormByUid(uid);
 		List<OrderDetail> orderdetails = null;	
 		List<Integer> gids = null;
 		Set<Integer> sids = new HashSet<>();
 		List<List<Order>> orderlists = new ArrayList<List<Order>>();
 		List<OrderInfo> orderinfolist = new ArrayList<OrderInfo>();
 		
-		System.out.println(oids);
+		for(OrderForm o : orderformls){
+			if(o.getState().getStateid()==4){
+				oids.add(o.getOid());
+			}
+		}
 		for(Integer i:oids){
 			List<Order> orderlist = new ArrayList<Order>();;
 			int counts = 0;

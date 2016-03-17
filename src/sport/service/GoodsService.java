@@ -24,10 +24,10 @@ public class GoodsService {
 		return dao.getAll();
 	}
 
-	public List<Goods> getAllGoodsesBySid(int sid) {
-		return dao.getAllGoodsesBySid(sid);
+	public List<Goods> getAllGoodsesBySidOrderByPopularity(int sid) {
+		return dao.getAllGoodsesBySidOrderByPopularity(sid);
 	}
-	
+
 	public void modify(Goods goods) {
 		dao.modify(goods);
 	}
@@ -47,4 +47,10 @@ public class GoodsService {
 	public List<Goods> getAllGoodsBySid(int sid) {
 		return dao.getAllGoodsBySid(sid);
 	}
+
+	public List<Goods> getAllGoodsesBySidOrderBySales(int sid) {
+		// TODO Auto-generated method stub
+		return dao.getAllGoodsesBySidOrderBySales(sid);
+	}
+
 }

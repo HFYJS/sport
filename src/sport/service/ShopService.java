@@ -4,6 +4,7 @@ import java.util.List;
 
 import sport.dao.ShopDao;
 import sport.entity.Shop;
+import sport.entity.User;
 import sport.iter.Login;
 
 public class ShopService implements Login {
@@ -50,5 +51,11 @@ public class ShopService implements Login {
 	public List<Shop> getPagedShopsByCatid(int catid, int pageStart,
 			int pageSize) {
 		return dao.getPagedShopsByCatid(catid, pageStart, pageSize);
+	}
+
+	@Override
+	public User userlogin(String name, String pwd) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

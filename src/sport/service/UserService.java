@@ -20,6 +20,20 @@ public class UserService implements Login {
 		return 1;
 	}
 
+	@Override
+	public User userlogin(String name, String pwd) {
+		User user = getUserByName(name);
+		if (user != null) {
+			if (user.getName().equals(name) && user.getPassword().equals(pwd)) {
+				return user;
+			} else {
+				return null;
+			}
+		} else {
+			return null;
+		}
+	}
+
 	public int getUidByName(String name) {
 		return dao.getUidByName(name);
 	}
@@ -37,4 +51,7 @@ public class UserService implements Login {
 		return dao.updateUserInfo(user);
 	}
 
+	public void addUser(String name, String pwd) {
+		dao.addUser(name, pwd);
+	}
 }
