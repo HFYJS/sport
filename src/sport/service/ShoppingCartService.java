@@ -17,4 +17,14 @@ public class ShoppingCartService {
 		return dao.getShoppingCartByUid(uid);
 	}
 
+	public void updateShoppingCart(int cartid, int count) {
+		// TODO Auto-generated method stub
+		dao.updateShoppingCart(cartid, count);
+	}
+
+	public void deleteShoppingCartsByCartids(int[] cartids) {
+		// TODO Auto-generated method stub
+		dao.deleteShoppingCartsByCartids(cartids);
+	}
+
 }

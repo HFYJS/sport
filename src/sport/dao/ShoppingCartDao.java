@@ -22,7 +22,8 @@ public class ShoppingCartDao {
 		Statement stat = null;
 		ResultSet rs = null;
 		List<ShoppingCart> shoppingCarts = new ArrayList<ShoppingCart>();
-		String sql = "select * from shoppingcart where uid=" + uid;
+		String sql = "select * from shoppingcart where uid=" + uid
+				+ " order by cartid";
 
 		try {
 			stat = conn.createStatement();
@@ -60,6 +61,53 @@ public class ShoppingCartDao {
 		}
 
 		return shoppingCarts;
+	}
+
+	public void updateShoppingCart(int cartid, int count) {
+		// TODO Auto-generated method stub
+		Connection conn = DBConnection.getConnection();
+		Statement stat = null;
+		String sql = "update shoppingcart set count=" + count
+				+ " where cartid=" + cartid;
+
+		try {
+			stat = conn.createStatement();
+			stat.executeUpdate(sql);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			if (null != stat) {
+				try {
+					stat.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			DBConnection.close(conn);
+		}
+	}
+
+	public void deleteShoppingCartByCartid(int cartid) {
+		Connection conn = DBConnection.getConnection();
+		Statement stat = null;
+		String sql = "delete from shoppingcart where cartid=" + cartid;
+
+		try {
+			stat = conn.createStatement();
+			stat.executeUpdate(sql);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	public void deleteShoppingCartsByCartids(int[] cartids) {
+		// TODO Auto-generated method stub
+		for (int cartid : cartids) {
+			deleteShoppingCartByCartid(cartid);
+		}
 	}
 
 }
