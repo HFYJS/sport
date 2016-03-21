@@ -1,13 +1,20 @@
 package sport.entity;
 
-import java.util.Date;
-
 public class Comment {
 	private int comid;
-	private OrderForm orderForm;
-	private Date date;
+	private int uid;
+	private int gid;
+	private String date;
 	private String content;
 	private String imgPath;
+
+	public int getGid() {
+		return gid;
+	}
+
+	public void setGid(int gid) {
+		this.gid = gid;
+	}
 
 	public Comment() {
 
@@ -21,19 +28,19 @@ public class Comment {
 		this.comid = comid;
 	}
 
-	public OrderForm getOrderForm() {
-		return orderForm;
+	public int getUid() {
+		return uid;
 	}
 
-	public void setOrderForm(OrderForm orderForm) {
-		this.orderForm = orderForm;
+	public void setUid(int uid) {
+		this.uid = uid;
 	}
 
-	public Date getDate() {
+	public String getDate() {
 		return date;
 	}
 
-	public void setDate(Date date) {
+	public void setDate(String date) {
 		this.date = date;
 	}
 

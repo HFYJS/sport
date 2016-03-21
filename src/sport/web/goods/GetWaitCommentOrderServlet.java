@@ -31,86 +31,83 @@ public class GetWaitCommentOrderServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		OrderService service = new OrderService();
 		ShopService shopService = new ShopService();
 
-		//获取orderform
+		// 获取orderform
 		int uid = Integer.parseInt(request.getParameter("uid"));
-		//获取orderdetails
+		// 获取orderdetails
 		List<Integer> oids = new ArrayList<Integer>();
 		List<List<OrderDetail>> orderdetailslist = new ArrayList<List<OrderDetail>>();
 		List<OrderForm> orderformls = service.getAllOrderFormByUid(uid);
-		List<OrderDetail> orderdetails = null;	
+		List<OrderDetail> orderdetails = null;
 		List<Integer> gids = null;
-		Set<Integer> sids = new HashSet<>();
 		List<List<Order>> orderlists = new ArrayList<List<Order>>();
 		List<OrderInfo> orderinfolist = new ArrayList<OrderInfo>();
-		
-		for(OrderForm o : orderformls){
-			if(o.getState().getStateid()==4){
+
+		for (OrderForm o : orderformls) {
+			if (o.getState().getStateid() == 4) {
 				oids.add(o.getOid());
 			}
 		}
-		for(Integer i:oids){
-			List<Order> orderlist = new ArrayList<Order>();;
+		for (Integer i : oids) {
+			List<Order> orderlist = new ArrayList<Order>();
+			;
 			int counts = 0;
 			orderdetails = service.getOrderDetailByOid(i);
-			for(int a=0;a<orderdetails.size();a++){
-				
+			for (int a = 0; a < orderdetails.size(); a++) {
+
 				Order order = new Order();
 				int count = orderdetails.get(a).getCount();
 				order.setCount(count);
-				order.setGid(orderdetails.get(a).getGoods().getGid());
-				order.setGoodsName(orderdetails.get(a).getGoods().getName());
-				order.setImgPath(orderdetails.get(a).getGoods().getImgPath());
-				order.setPrice(orderdetails.get(a).getGoods().getPrice());
+				order.setGoods(orderdetails.get(a).getGoods());
+
 				order.setOid(i);
-				counts = count+counts;
-				orderlist.add(order);	
+				counts = count + counts;
+				orderlist.add(order);
 			}
 			orderlists.add(orderlist);
 
 			gids = service.getGidByOid(i);
-			String shopname = null;
-			String shopimage = null;
+
 			int sid = 0;
-			for(Integer j:gids){
-				sid = service.getShopIdBygid(j);	
-				shopname = shopService.getShopBySid(sid).getName();
-				shopimage = shopService.getShopBySid(sid).getImgPath();
-				sids.add(sid);	
+			for (Integer j : gids) {
+				sid = service.getShopIdBygid(j);
+
 			}
-			
+
 			int stateid = service.getSateIdByOid(i);
 			OrderInfo orderInfo = new OrderInfo();
 			orderInfo.setOid(i);
-			orderInfo.setSid(sid);
-			orderInfo.setShopName(shopname);
+
 			orderInfo.setSum(counts);
-			orderInfo.setStateName(service.getStateBystateid(stateid).getName());
+			orderInfo.setState(service.getStateBystateid(stateid));
 			orderInfo.setTotal(service.getTotalByOid(i));
-			orderInfo.setShopImage(shopimage);
-//			orderInfo.setDate(service.getDateByOid(i));
+			orderInfo.setShop(shopService.getShopBySid(sid));
+			// orderInfo.setDate(service.getDateByOid(i));
 			orderinfolist.add(orderInfo);
-			orderdetailslist.add(orderdetails);		
+			orderdetailslist.add(orderdetails);
 		}
 
-		
-		Map<String,String> orderinfo = new HashMap<String, String>();
+		Map<String, String> orderinfo = new HashMap<String, String>();
 
 		orderinfo.put("orderlist", new Gson().toJson(orderlists));
 		orderinfo.put("orderinfolist", new Gson().toJson(orderinfolist));
-		
+
 		response.getWriter().print(new Gson().toJson(orderinfo));
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 	}

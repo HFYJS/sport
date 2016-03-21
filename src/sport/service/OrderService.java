@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 import sport.dao.OrderDao;
+import sport.entity.Address;
 import sport.entity.OrderDetail;
 import sport.entity.OrderForm;
 import sport.entity.Shop;
@@ -47,5 +48,24 @@ public class OrderService {
 	
 	public int getSateIdByOid(int oid) {
 		return dao.getSateIdByOid(oid);
+	}
+	
+	public int getAddressIdByOid(int oid) {
+		return dao.getAddressIdByOid(oid);
+	}
+	public Address getAddressByaid(int aid) {
+		return dao.getAddressByaid(aid);
+	}
+	
+	public boolean createOrderForm(OrderForm orderForm,List<OrderDetail> orderDetails) {
+		return dao.createOrderForm(orderForm,orderDetails);
+	}
+	
+	public boolean createOrderForms(List<OrderForm> orderForms) {
+		return dao.createOrderForms(orderForms);
+	}
+	
+	public boolean createOrderDetail(List<OrderDetail> OrderDetails) {
+		return dao.createOrderDetail(OrderDetails);
 	}
 }

@@ -9,10 +9,22 @@ public class OrderForm {
 	private double total;
 	private Date date;
 	private String note;
-
+	private Address address;
+	
 	public OrderForm() {
 
 	}
+
+	
+	public Address getAddress() {
+		return address;
+	}
+
+
+	public void setAddress(Address address) {
+		this.address = address;
+	}
+
 
 	public int getOid() {
 		return oid;

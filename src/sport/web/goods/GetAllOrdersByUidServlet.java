@@ -47,7 +47,6 @@ public class GetAllOrdersByUidServlet extends HttpServlet {
 		List<List<OrderDetail>> orderdetailslist = new ArrayList<List<OrderDetail>>();
 		List<OrderDetail> orderdetails = null;	
 		List<Integer> gids = null;
-		Set<Integer> sids = new HashSet<>();
 		List<List<Order>> orderlists = new ArrayList<List<Order>>();
 		List<OrderInfo> orderinfolist = new ArrayList<OrderInfo>();
 		
@@ -58,42 +57,31 @@ public class GetAllOrdersByUidServlet extends HttpServlet {
 			orderdetails = service.getOrderDetailByOid(i);
 			for(int a=0;a<orderdetails.size();a++){
 				
-				Order order = new Order();
+				Order order = new Order();				
 				int count = orderdetails.get(a).getCount();
 				order.setCount(count);
-				order.setGid(orderdetails.get(a).getGoods().getGid());
-				order.setGoodsName(orderdetails.get(a).getGoods().getName());
-				order.setImgPath(orderdetails.get(a).getGoods().getImgPath());
-				order.setPrice(orderdetails.get(a).getGoods().getPrice());
+				order.setGoods(orderdetails.get(a).getGoods());
 				order.setOid(i);
 				counts = count+counts;
 				orderlist.add(order);	
 			}
 			orderlists.add(orderlist);
-
 			gids = service.getGidByOid(i);
-			String shopname = null;
-			String shopimage = null;
-			int sid = 0;
-			for(Integer j:gids){
-				sid = service.getShopIdBygid(j);	
-				shopname = shopService.getShopBySid(sid).getName();
-				shopimage = shopService.getShopBySid(sid).getImgPath();
-				sids.add(sid);	
-			}
-			
-			int stateid = service.getSateIdByOid(i);
 			OrderInfo orderInfo = new OrderInfo();
-			orderInfo.setOid(i);
-			orderInfo.setSid(sid);
-			orderInfo.setShopName(shopname);
-			orderInfo.setSum(counts);
-			orderInfo.setStateName(service.getStateBystateid(stateid).getName());
-			orderInfo.setTotal(service.getTotalByOid(i));
-			orderInfo.setShopImage(shopimage);
-//			orderInfo.setDate(service.getDateByOid(i));
-			orderinfolist.add(orderInfo);
-			orderdetailslist.add(orderdetails);		
+			int stateid = service.getSateIdByOid(i);
+			if(gids.size()!=0){
+				Shop shop = shopService.getShopBySid(service.getShopIdBygid(gids.get(0)));;
+				orderInfo.setShop(shop);
+				orderInfo.setOid(i);			
+				
+				orderInfo.setSum(counts);
+				orderInfo.setState(service.getStateBystateid(stateid));
+				orderInfo.setTotal(service.getTotalByOid(i));
+//				orderInfo.setDate(service.getDateByOid(i));
+				orderinfolist.add(orderInfo);
+				orderdetailslist.add(orderdetails);		
+			}	
+			
 		}
 
 		
